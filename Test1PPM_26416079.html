@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href=jmobile/jquery.mobile-1.4.5.css />
+	<script src=jmobile/demos/js/jquery.js></script>
+	<script src=jmobile/jquery.mobile-1.4.5.js></script>
+	<title>Profile</title>
+	<style type="text/css">
+		.ui-bar-z{
+			color : red;
+			background-color: gainsboro;
+		}
+		.ui.body-z{
+			font-style: italic;
+			font-family: comic sans MS;
+		}
+		#box {
+			width: 100px;
+			height: 100px;
+			border: none;
+			background-color: white;
+		}
+	</style>
+	<script type="text/javascript">
+		function isNum(args)
+		{
+		args = args.toString();
+		if (args.length == 0)
+		return false;for (var i = 0;i<args.length;i++)
+		{
+		if (args.substring(i,i+1) < "0" || args.substring(i, i+1) > "9")
+		{
+		return false;
+		}
+		}return true; } function deciToBin(arg) {
+		res1 = 999;
+		args = arg;
+		while(args>1)
+		{
+		arg1 = parseInt(args/2);
+		arg2 = args%2;
+		args = arg1;
+		if(res1 == 999)
+		{
+		res1 = arg2.toString();
+		}
+		else
+		{
+		res1 = arg2.toString()+res1.toString();
+		}
+		}
+		if(args == 1 && res1 != 999)
+		{
+		res1 = args.toString()+res1.toString();
+		}
+		else if(args == 0 && res1 == 999)
+		{
+		res1 = 0;
+		}
+		else if(res1 == 999)
+		{
+		res1 = 1;
+		}
+		var ll = res1.length;
+		while(ll%4 != 0)
+		{
+		res1 = "0"+res1;
+		ll = res1.length;
+		}
+		return res1; } 
+		function toHex(d) {
+    		return  ("0"+(Number(d).toString(16))).slice(-2).toUpperCase()
+		}
+		function hexToRgb() {
+			var rd=parseInt(document.getElementById("red").value);
+			var gr=parseInt(document.getElementById("green").value);
+			var bl=parseInt(document.getElementById("blue").value);
+			var red=(rd<16)? "0"+rd.toString(16) : rd.toString(16);
+			var green=(gr<16)? "0"+gr.toString(16) : gr.toString(16);
+			var bl=(rd<16)? "0"+bl.toString(16) : bl.toString(16);
+			var hexcode="#"+red+green+bl;
+			document.getElementById("box").style.backgroundColor=hexcode;
+		}
+
+		function change(name) {
+		var sd = name.value;
+		if(isNum(sd))
+		{
+			var result = deciToBin(sd);
+			var result2=toHex(sd);
+			document.first.deciBin.value = result;
+			document.first.toHex.value = result2;
+		}
+		else
+		{
+		document.first.deci.value = sd.substring(0,sd.length-1) ;
+		} } 
+	</script>
+</head>
+<body>
+	<div data-role=page id=menu>
+		<div data-role=header>
+			<h1>Main Menu</h1>
+		</div>
+		<ul data-role=listview>
+			<li><a href="#hal1" data-transition=slide>Calculator</a></li>
+			<li><a href="#hal2" data-transition=slide>RGB</a></li>
+			<li><a href="#hal3" data-transition=slide>Rangkuman PPM</a></li>
+		</ul>
+		<div data-role=footer>
+			<p>Copyright</p>
+		</div>
+	</div>
+	<div data-role=page id=hal1>
+		<div data-role=header data-add-back-btn="true">
+			<h1>Calculator</h1>
+		</div>
+		<div data-role=content>
+			<form name="first">
+				<label for="deci">Decimal Input:</label>
+				<input type="number" name="deci" id="deci" value=""onkeyup="change(this)">
+				<label for="deciBin">Binary Number</label>
+				<input disabled="disabled" type="text" name="deciBin" id="deciBin" value="" readonly class="resform">
+				<label for="toHex">Hexadecimal Number</label>
+				<input type="text" disabled="disabled" name="toHex" id="toHex" value="" readonly class="resform">
+			</form>
+		</div>
+		<div data-role=footer>
+			<h1>Copyright</h1>
+		</div>
+	</div>
+</div>
+	<div data-role=page id=hal2>
+		<div data-role=header data-add-back-btn="true">
+			<h1>Color Changer</h1>
+		</div>
+			<div data-role=content>
+				<form name="second">
+				    <label for="hexToRgb">Hexadecimal to Color :</label>
+				    <label for="red">Red</label>
+				    <input type="range" name="red" id="red" min="0" max="255" value="0" onchange="hexToRgb()">
+				 <label for="green">Green </label>
+				    <input type="range" name="green" id="green" min="0" max="255" value="0" onchange="hexToRgb()">
+				 <label for="blue">Blue</label>
+				    <input type="range" name="blue" id="blue" min="0" max="255" value="0" onchange="hexToRgb()">
+				    <label for="hexToRgb">Color</label>
+				    <div id="box"></div>
+				</form>
+			</div>
+		<div data-role=footer>
+			<h1>Copyright</h1>
+		</div>
+	</div>
+	<div data-role=page id="hal3">
+		<div data-role=header data-add-back-btn="true">
+			<h1>Rangkuman</h1>
+		</div>
+		<div data-role=content>
+			<ol data-role="listview">
+			    <li>GitHub</li>
+			    <li>JQuery Mobile</li>
+			    <li>Angular JS</li>
+			</ol>
+			<h2>Rangkuman Pemrogaman Mobile</h2>
+			<h3>GitHub</h3>
+			<p>1.	Instalisasi GitHub dengan mengetik peritah git init. Perintah terebut untuk membuat repository local untuk sebuah projek</p>
+			<p>2.	Lalu untuk memeriksa status projek yang kita buat kita mengetik perintah git status</p>
+			<p>3.	Untuk menambahkan sebuah file source code beserta file projek kedalam staging area ketik perintah git add (nama file)</p>
+			<p>4.	Setelah itu untuk menyimpan source code kedalam repository ketik perintah git commit –m “(perintah)”</p>
+			<p>5.	Untuk menambah seluruh file dengan tipe yang sama ketik git add ‘*.(tipe file)’</p>
+			<p>6.	Untuk melihat apa saja yang telah dirubah sejauh yang telah dibuat ketik perintah git log</p>
+			<p>7.	Untuk menambah remote name dan repository URL agar projek kita bisa diupload maka ketik perintah git remote add origin https://github.com/ (nama owner)/(nama repository).git</p>
+			<p>8.	Untuk mengupload ke GitHub ketik perintah git push –u origin master. –u berfungsi untuk memberitahu git supaya dia mengingat parameter. Sehingga kedepannya kita hanya perlu menjalankan git push dang it akan mengetahui apa yang harus dilakukan.</p>
+			<p>9.	Untuk mengecek dan memperbarui GitHub yang telh dibuat maka ketik perintah git pull origin master</p>
+			<p>10.	Untuk melihat perubahan yang belum masuk ke area stage maka ketik git diff (nama file)</p>
+			<p>11.	Untuk melihat perubahan yang baru saja dimasukan kedalam area stage maka ketik perintah git diff –staged</p>
+			<p>12.	Untuk menghilangkan perubahan dari commit yang telah terjadi maka ketik perintah git reset (namafile)</p>
+			<p>13.	Untuk mengembalikan perubahan didalam projek maka gunakan perintah  git checkout –(nama fie)</p>
+			<p>14.	Untuk membuat branch (atau copy) pada source code maka bisa menggunakan perintah git branch (nama branch)</p>
+			<p>15.	Untuk beralih ke branch yang telah dibuat maka bisa menggunakan perintah git checkout (nama branch)</p>
+			<p>16.	Untuk menghapus file bisa menggunakan git rm ‘(nama file).(jenis file)’  atau bisa menggunakan git rm’*.(jenis file)’ untuk menghapus semua file dengan jenis yang telah diketik</p>
+			<p>17.	Untuk kembali ke branch utama atau master branch maka bisa menggunakan perintah git checkout master</p>
+			<p>18.	Untuk menghapus branch yang sudah dibuat bisa menggunakan perintah git merge –d (nama branch) </p>
+			<p>19.	Untuk mengupload semua projek yang sudah dibuat maka bisa mengetik perintah git push</p>
+			<h3>JQuery Mobile</h3>
+			<p>Jquery Mobile menggunakan library JqueryMobile sehingga penggunaannya mudah</p>
+		</div>
+	</div>
+</body>
+</html>
